@@ -1,0 +1,2 @@
+insert into sensors (id, enable, latitude, longitude, name) values (1, true, '50.0811043', '19.222831', 'sensor1');
+insert into sensors (id, enable, latitude, longitude, name) values (2, false, '50.079296', '19.224043', 'sensor2');
