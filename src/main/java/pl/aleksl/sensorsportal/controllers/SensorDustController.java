@@ -3,10 +3,9 @@ package pl.aleksl.sensorsportal.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.aleksl.sensorsportal.model.ApiResponse;
-import pl.aleksl.sensorsportal.model.SensorsDust;
+import pl.aleksl.sensorsportal.model.SensorDust;
 import pl.aleksl.sensorsportal.services.SensorDustService;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class SensorDustController {
     private String securityAppKey;
 
     @GetMapping("/sensorDust/list")
-    public ApiResponse<List<SensorsDust>> listSensorDust() {
+    public ApiResponse<List<SensorDust>> listSensorDust() {
         return new ApiResponse<>(HttpStatus.OK.value(), "Sensor dust list fetched successfully.", sensorDustService.findAll());
     }
 
@@ -39,7 +38,7 @@ public class SensorDustController {
         if (pm1 == null) pm1 = 0;
         if (pm25 == null) pm25 = 0;
         if (pm10 == null) pm10 = 0;
-        SensorsDust sensorsDust = new SensorsDust();
+        SensorDust sensorsDust = new SensorDust();
         sensorsDust.setSensor_id(sensorId);
         sensorsDust.setPm1(pm1);
         sensorsDust.setPm25(pm25);
@@ -50,19 +49,19 @@ public class SensorDustController {
     }
 
     @GetMapping("/sensorDust/list/{sensorId}")
-    public ApiResponse<List<SensorsDust>> listSensorDustBySensorId(@PathVariable int sensorId
+    public ApiResponse<List<SensorDust>> listSensorDustBySensorId(@PathVariable int sensorId
     ) {
         return new ApiResponse<>(HttpStatus.OK.value(), "Sensor dust list fetched successfully.", sensorDustService.getBySensorId(sensorId));
     }
 
     @GetMapping("/sensorDust/last/{sensorId}")
-    public ApiResponse<SensorsDust> getLastSensorDustInfo(@PathVariable int sensorId
+    public ApiResponse<SensorDust> getLastSensorDustInfo(@PathVariable int sensorId
     ) {
         return new ApiResponse<>(HttpStatus.OK.value(), "Sensor dust list fetched successfully.", sensorDustService.getBySensorIdLastMeasurement(sensorId));
     }
 
     @GetMapping("/sensorDust/last/{sensorId}/{count}")
-    public ApiResponse<List<SensorsDust>> getLastTwentySensorDustInfo(@PathVariable int sensorId, @PathVariable int count
+    public ApiResponse<List<SensorDust>> getLastTwentySensorDustInfo(@PathVariable int sensorId, @PathVariable int count
     ) {
         return new ApiResponse<>(HttpStatus.OK.value(), "Sensor dust list fetched successfully.", sensorDustService.getBySensorIdLastMeasurements(sensorId, count));
     }

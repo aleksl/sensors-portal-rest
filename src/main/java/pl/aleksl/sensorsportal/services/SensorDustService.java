@@ -1,10 +1,8 @@
 package pl.aleksl.sensorsportal.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.aleksl.sensorsportal.model.Sensors;
-import pl.aleksl.sensorsportal.model.SensorsDust;
+import pl.aleksl.sensorsportal.model.SensorDust;
 import pl.aleksl.sensorsportal.repository.SensorDustDao;
 
 import java.util.ArrayList;
@@ -18,13 +16,13 @@ public class SensorDustService {
     @Autowired
     SensorDustDao sensorDustDao;
 
-    public List<SensorsDust> findAll() {
+    public List<SensorDust> findAll() {
         List list = new ArrayList<>();
         sensorDustDao.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
-    public List<SensorsDust> getBySensorId(int sensorId) {
+    public List<SensorDust> getBySensorId(int sensorId) {
         List list = new ArrayList<>();
         sensorDustDao.findAll().iterator().forEachRemaining(sensorsDust -> {
             if (sensorsDust.getSensor_id() == sensorId) {
@@ -35,21 +33,21 @@ public class SensorDustService {
         return list;
     }
 
-    public SensorsDust getBySensorIdLastMeasurement(int sensorId) {
-       List<SensorsDust> sensors = getBySensorIdLastMeasurements(sensorId, 1);
+    public SensorDust getBySensorIdLastMeasurement(int sensorId) {
+       List<SensorDust> sensors = getBySensorIdLastMeasurements(sensorId, 1);
         if(sensors != null && sensors.size() == 1)
             return sensors.get(0);
         return null;
     }
 
-    public List<SensorsDust> getBySensorIdLastMeasurements(int sensorId, int count) {
-        Optional<List<SensorsDust>> sensor = sensorDustDao.findBySensorIdLastMeasurement(sensorId, count);
+    public List<SensorDust> getBySensorIdLastMeasurements(int sensorId, int count) {
+        Optional<List<SensorDust>> sensor = sensorDustDao.findBySensorIdLastMeasurement(sensorId, count);
         if (!sensor.isPresent())
             return null;
         return sensor.get();
     }
 
-    public void save(SensorsDust s){
+    public void save(SensorDust s){
         sensorDustDao.save(s);
     }
 

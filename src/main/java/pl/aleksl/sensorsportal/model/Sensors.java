@@ -1,9 +1,12 @@
 package pl.aleksl.sensorsportal.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @ToString
 @Entity
@@ -12,6 +15,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "sensors")
 public class Sensors {
 
+    @Column
+    public boolean enable;
+    @Transient
+    public List<SensorDust> sensorsDustList;
+    @Transient
+    public List<SensorTempHumPress> sensorTempHumPress;
     @Id
     private @NotNull int id;
     @Column
@@ -20,6 +29,4 @@ public class Sensors {
     private String latitude;
     @Column
     private String longitude;
-    @Column
-    public boolean enable;
 }

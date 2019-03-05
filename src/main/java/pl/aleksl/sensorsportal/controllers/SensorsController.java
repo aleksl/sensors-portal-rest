@@ -1,14 +1,12 @@
 package pl.aleksl.sensorsportal.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import pl.aleksl.sensorsportal.model.ApiResponse;
 import pl.aleksl.sensorsportal.model.Sensors;
-import pl.aleksl.sensorsportal.model.SensorsDust;
-import pl.aleksl.sensorsportal.services.SensorDustService;
 import pl.aleksl.sensorsportal.services.SensorsService;
 
 import java.util.List;
@@ -28,6 +26,16 @@ public class SensorsController {
     @GetMapping("/sensors/{id}")
     public ApiResponse<Sensors> getSensorById(@PathVariable int id) {
         return new ApiResponse<>(HttpStatus.OK.value(), "Sensor fetched successfully.", sensorsService.getById(id));
+    }
+
+    @GetMapping("/sensors/lastMeasurement/{id}")
+    public ApiResponse<Sensors> getSensorByIdWithLastMeasurement(@PathVariable int id) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Sensor fetched successfully.", sensorsService.getByIdWithLastMeasurement(id));
+    }
+
+    @GetMapping("/sensors/lastMeasurement/list")
+    public ApiResponse<Sensors> listSensorsWithLastMeasurement() {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Sensor fetched successfully.", sensorsService.findAllWithLastMeasurement());
     }
 
     @GetMapping("/sensors/list/{term}")

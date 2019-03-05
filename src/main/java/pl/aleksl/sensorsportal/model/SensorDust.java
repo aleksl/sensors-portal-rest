@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "sensors_dust")
-public class SensorsDust implements Serializable {
+public class SensorDust implements Serializable {
 
     @Column
     private @NotNull int sensor_id;
